@@ -174,7 +174,7 @@ func (d *Demod) DetectModeS(chunk *SourceIQ) {
 					int16(chunk.mag[j+i+PreambleUs*2+1]))),
 			)
 		}
-		delta /= int(msgLen * 4)
+		delta /= msgLen * 4
 
 		if delta < (10 * 255) {
 			useCorrection = false
@@ -197,13 +197,13 @@ func (d *Demod) DetectModeS(chunk *SourceIQ) {
 			if !crcOK && isADSB(msgType) {
 				if errorBit = fixSingleBitErrors(mmsg, msgLen*8); errorBit != -1 {
 					crcOK = true
-					crc = modesChecksum(mmsg, int(msgLen*8))
+					crc = modesChecksum(mmsg, msgLen*8)
 				}
 
 				if errorBit == -1 {
 					if errorBit = fixTwoBitsErrors(mmsg, msgLen*8); errorBit != -1 {
 						crcOK = true
-						crc = modesChecksum(mmsg, int(msgLen*8))
+						crc = modesChecksum(mmsg, msgLen*8)
 					}
 				}
 			}
@@ -216,7 +216,7 @@ func (d *Demod) DetectModeS(chunk *SourceIQ) {
 
 			// DF
 			if !crcOK && isDownlinkRequest(msgType) {
-				if ok, _icao := d.bruteForceAp(msg, int(msgLen*8)); ok {
+				if ok, _icao := d.bruteForceAp(msg, msgLen*8); ok {
 					crcOK = true
 					icao = _icao
 				}
