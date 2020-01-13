@@ -1,9 +1,9 @@
+// +build cgo
+
 package main
 
 import (
 	"log"
-
-	"github.com/jpoirier/gortlsdr"
 )
 
 type RtlSdrScanner struct {
